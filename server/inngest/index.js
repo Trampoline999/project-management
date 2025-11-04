@@ -29,7 +29,7 @@ const syncUserDelete = inngest.createFunction(
     const { data } = event;
     await prisma.user.delete({
       where: {
-        id: data.id,
+        id: data?.id,
       },
     });
   }
@@ -40,9 +40,9 @@ const syncUserUpdate = inngest.createFunction(
   { event: "clerk/user.updated" },
   async ({ event }) => {
     const { data } = event;
-    await prisma.user.create({
+    await prisma.user.update({
       where: {
-        id: data.id,
+        id: data?.id,
       },
       data: {
         email: data?.email_addresses[0].email_address,
